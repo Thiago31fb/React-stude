@@ -1,4 +1,4 @@
-// cd "tutorial Felipe Rocha"
+// cd "tutorial Felipe Node"
 // npm init
 // npm install nodemon --save-dev
 // npm install (instalar as dependencias "caso clonar o repositorio do git")
