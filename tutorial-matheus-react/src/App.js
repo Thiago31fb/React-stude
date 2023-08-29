@@ -4,6 +4,9 @@
 
 import logo from "./logo.svg";
 import "./App.css";
+import HelloWorld from "./components/HelloWorld";
+import SayMyName from "./components/SayMyName";
+import Pessoa from "./components/Pessoa";
 
 function App() {
   function soma(a, b) {
@@ -19,8 +22,16 @@ function App() {
     <div className="App">
       <h1>Meu projeto</h1>
       <p>Ola {newName}</p>
-      <p>Soma: {soma(2,3)}</p>
-      <img src={url} alt="Minha imagem"/>
+      <p>Soma: {soma(2, 3)}</p>
+      <img src={url} alt="Minha imagem" />
+      <HelloWorld />
+      <SayMyName nome="Maria" />
+      <Pessoa
+        nome="Thiago"
+        idade="22"
+        profissao="Programador"
+        foto="https://via.placeholder.com/150"
+      />
     </div>
   );
 }
