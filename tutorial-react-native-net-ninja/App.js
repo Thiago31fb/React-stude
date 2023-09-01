@@ -2,21 +2,24 @@
 // cd tutorial-react-native-net-ninja
 // npm install react-native-web
 // npx expo start
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
 
 export default function App() {
+  const [name, setName] = useState("Thiago");
+  const [person, setPerson] = useState({name: 'mario', age: 40});
+
+  const clickHandler = () => {
+    setName('Barcelo')
+    setPerson({name: 'luide', age: 30})
+  }
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.boldText}>Hello, World!</Text>
+      <Text>meu nome e {name}!!!</Text>
+      <Text>His name is {person.name} and his age is {person.age}!!!</Text>
+      <View style={styles.buttonContainer}>
+        <Button title="Update state" onPress={clickHandler} />
       </View>
-      <View style={styles.body}>
-        <Text style={styles.boldText}>Texto do <Text>"Teste de eranca" </Text> corpo bem aleatorio...</Text>
-        <Text>Texto do corpo bem aleatorio...</Text>
-        <Text>Texto do corpo bem aleatorio...</Text>
-      </View>
-      <StatusBar style="auto" />
     </View>
   );
 }
@@ -24,21 +27,11 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#eee",
     alignItems: "center",
     justifyContent: "center",
   },
-  header: {
-    backgroundColor: "pink",
-    padding: 20,
-  },
-  boldText: {
-    fontWeight: "bold",
-  },
-  body: {
-    backgroundColor: "yellow",
-    padding: 20,
-    fontWeight: "bold", // nao se aplica aos componetes filho
-
-  },
+  buttonContainer:{
+    marginTop: 20
+  }
 });
