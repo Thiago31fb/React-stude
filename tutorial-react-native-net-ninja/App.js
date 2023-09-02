@@ -4,7 +4,7 @@
 // npx expo start
 // https://reactnative.dev/docs/textinput referencias
 import { useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, TouchableOpacity } from "react-native";
 
 export default function App() {
   const [people, setPeople] = useState([
@@ -18,13 +18,24 @@ export default function App() {
     { name: "Rapha", id: "8" },
   ]);
 
+  const pressHandler = (id) =>{
+    console.log(id)
+    setPeople((prevPeople)=>{
+      return prevPeople.filter(person => person.id != id)
+    })
+  }
   return (
     <View style={styles.container}>
       <FlatList
         numColumns={2}
         keyExtractor={(item) => item.id}
         data={people}
-        renderItem={({ item }) => <Text style={styles.item}>{item.name}</Text>}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => pressHandler(item.id)}>
+
+            <Text style={styles.item}>{item.name}</Text>
+          </TouchableOpacity>
+        )}
       />
 
       {/* <ScrollView>
