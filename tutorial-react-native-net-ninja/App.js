@@ -4,32 +4,33 @@
 // npx expo start
 // https://reactnative.dev/docs/textinput referencias
 import { useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, Alert } from "react-native";
 
 import Header from "./components/Header";
 import TodoItem from "./components/TodoItem";
 import AddTodo from "./components/AddTodo";
 
 export default function App() {
-const [todos, setTodos] = useState([
-  {text: 'buy coffee', key: '1'},
-  {text: 'create an app', key: '2'},
-  {text: 'play on the switcy', key: '3'},
-])
-const presHandler = (key) =>{
-  setTodos((prevTodos) =>{
-    return prevTodos.filter(todo => todo.key != key)
-  })
-}
-const submitTodo = (text) =>{
-  setTodos((prevTodos) =>{
-    return [
-      {text: text, key: Math.random().toString() },
-      ...prevTodos
-    ]
-  })
-}
- 
+  const [todos, setTodos] = useState([
+    { text: "buy coffee", key: "1" },
+    { text: "create an app", key: "2" },
+    { text: "play on the switcy", key: "3" },
+  ]);
+  const presHandler = (key) => {
+    setTodos((prevTodos) => {
+      return prevTodos.filter((todo) => todo.key != key);
+    });
+  };
+  const submitTodo = (text) => {
+    if (text.length >= 2) {
+      setTodos((prevTodos) => {
+        return [{ text: text, key: Math.random().toString() }, ...prevTodos];
+      });
+    } else {
+      Alert.alert("OOPS!", "Todos must be over 1 chars long",[{text: 'Understood',onPress:()=> console.log('alert Closed') }]);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Header />
