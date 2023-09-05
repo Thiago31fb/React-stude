@@ -4,7 +4,7 @@
 // npx expo start
 // https://reactnative.dev/docs/textinput referencias
 import { useState } from "react";
-import { StyleSheet, Text, View, FlatList, Alert } from "react-native";
+import { StyleSheet, Text, View, FlatList,   } from "react-native";
 
 import Header from "./components/Header";
 import TodoItem from "./components/TodoItem";
