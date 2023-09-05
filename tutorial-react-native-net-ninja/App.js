@@ -4,11 +4,20 @@
 // npx expo start
 // https://reactnative.dev/docs/textinput referencias
 import { useState } from "react";
-import { StyleSheet, Text, View, FlatList,   } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
+} from "react-native";
 
 import Header from "./components/Header";
 import TodoItem from "./components/TodoItem";
 import AddTodo from "./components/AddTodo";
+import Sandbox from "./components/Sandbox";
 
 export default function App() {
   const [todos, setTodos] = useState([
@@ -27,25 +36,35 @@ export default function App() {
         return [{ text: text, key: Math.random().toString() }, ...prevTodos];
       });
     } else {
-      Alert.alert("OOPS!", "Todos must be over 1 chars long",[{text: 'Understood',onPress:()=> console.log('alert Closed') }]);
+      Alert.alert("OOPS!", "Todos must be over 1 chars long", [
+        { text: "Understood", onPress: () => console.log("alert Closed") },
+      ]);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Header />
-      <View style={styles.content}>
-        <AddTodo submitTodo={submitTodo} />
-        <View style={styles.list}>
-          <FlatList
-            data={todos}
-            renderItem={({ item }) => (
-              <TodoItem item={item} presHandler={presHandler} />
-            )}
-          />
+    // <Sandbox/>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        Keyboard.dismiss();
+        // console.log("Teclado descartado");
+      }}
+    >
+      <View style={styles.container}>
+        <Header />
+        <View style={styles.content}>
+          <AddTodo submitTodo={submitTodo} />
+          <View style={styles.list}>
+            <FlatList
+              data={todos}
+              renderItem={({ item }) => (
+                <TodoItem item={item} presHandler={presHandler} />
+              )}
+            />
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -55,9 +74,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   content: {
+    flex: 1,
     padding: 40,
   },
   list: {
+    flex: 1,
     padding: 20,
   },
 });
