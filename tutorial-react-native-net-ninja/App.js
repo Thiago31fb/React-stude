@@ -3,6 +3,7 @@
 // npm install react-native-web
 // npx expo start
 // https://reactnative.dev/docs/textinput referencias
+//https://icons.expo.fyi/Index 
 import { useState } from "react";
 import {
   StyleSheet,
@@ -18,6 +19,8 @@ import Header from "./components/Header";
 import TodoItem from "./components/TodoItem";
 import AddTodo from "./components/AddTodo";
 import Sandbox from "./components/Sandbox";
+
+
 
 export default function App() {
   const [todos, setTodos] = useState([
@@ -45,10 +48,10 @@ export default function App() {
   return (
     // <Sandbox/>
     <TouchableWithoutFeedback
-      onPress={() => {
-        Keyboard.dismiss();
-        // console.log("Teclado descartado");
-      }}
+    onPress={() => {
+      Keyboard.dismiss();
+      // console.log("Teclado descartado");
+    }}
     >
       <View style={styles.container}>
         <Header />
