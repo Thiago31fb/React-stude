@@ -1,39 +1,43 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-
-export default function TodoItem({ item, hendleTaskClick }) {
+import { AntDesign } from "@expo/vector-icons"; 
+export default function TodoItem({ item, hendleTaskClick, presHandler }) {
   if (item.completed) {
     return (
       <View style={styles.container}>
         <TouchableOpacity onPress={() => hendleTaskClick(item.key)}>
-          <Text style={styles.completed}>{item.title}</Text>
+          <Text style={styles.text}>{item.title}</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Text>X</Text>
+        <TouchableOpacity onPress={() => presHandler(item.key)}>
+          <AntDesign name="closecircleo" size={24} color="chartreuse" />
         </TouchableOpacity>
       </View>
     );
   } else {
     return (
-      <TouchableOpacity onPress={() => hendleTaskClick(item.key)}>
-        <Text style={styles.text}>{item.title}</Text>
-      </TouchableOpacity>
+      <View style={styles.container2}>
+        <TouchableOpacity onPress={() => hendleTaskClick(item.key)}>
+          <Text style={styles.text}>{item.title}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => presHandler(item.key)}>
+          <AntDesign name="closecircleo" size={24} color="chartreuse" />
+        </TouchableOpacity>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   text: {
-    padding: 16,
-    marginTop: 16,
     color: "#eee",
     fontSize: 18,
-
-    borderColor: "chartreuse",
-    borderWidth: 1,
-    borderRadius: 10,
   },
-  completed: {
+
+  container: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+
     padding: 16,
     marginTop: 16,
     color: "#eee",
@@ -44,7 +48,18 @@ const styles = StyleSheet.create({
     borderLeftWidth: 12,
     borderRadius: 10,
   },
-  container:{
-    flex: 2,    
-  }
+  container2: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+
+    padding: 16,
+    marginTop: 16,
+    color: "#eee",
+    fontSize: 18,
+
+    borderColor: "chartreuse",
+    borderWidth: 1,
+    borderRadius: 10,
+  },
 });
