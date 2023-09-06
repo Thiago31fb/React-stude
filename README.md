@@ -1,5 +1,5 @@
 ## Olá!👋 
-## Este repositório é uma coletânea dos meus projetos e tutoriais desenvolvidos durante este período, em paralelo com a disciplina de desenvolvimento mobile, visando aprofundar meu conhecimento em React, React Native e também explorar um pouco de Node.js." 
+## Este repositório é uma coletânea dos meus projetos e tutoriais que fiz durante este período, em paralelo com a disciplina de desenvolvimento mobile, visando aprofundar meu conhecimento em React, React Native e também explorar um pouco de Node.js.
 
 <br/>
 
