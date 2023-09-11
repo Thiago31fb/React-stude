@@ -1,12 +1,12 @@
 import React from "react";
 
 import { StyleSheet, View, Text } from "react-native";
+import { globalStyles } from "../styles/Global";
 
 export default function ReviwDetails() {
   return (
-    <View style={styles.container}>
-      <Text>ReviwDetails
-     Screen</Text>
+    <View style={globalStyles.container}>
+      <Text style={globalStyles.paragraph}>ReviwDetails Screen</Text>
     </View>
   );
 }

@@ -31,10 +31,6 @@ export default function App() {
   }
 
   return (
-    <View  onLayout={onLayoutRootView}>
-      <Home/>
-      <Text style={{ fontFamily: 'Nunito-Bold', fontSize: 30 }}>Inter Black</Text>
-      <Text style={{ fontSize: 30 }}>Platform Default</Text>
-    </View>
+      <Home onLayout={onLayoutRootView} />
   );
 }
