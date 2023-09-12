@@ -1,22 +1,15 @@
 import React from "react";
 
-import { StyleSheet, View, Text, Button } from "react-native";
+import { StyleSheet, View, Text, FlatList } from "react-native";
 import { globalStyles } from "../styles/Global";
 
-export default function ReviwDetails({ navigation }) {
-  const pressHandler = () => {
-    navigation.goBack();
-  };
-
+export default function ReviwDetails({ route }) {
   return (
     <View style={globalStyles.container}>
-      <Text style={globalStyles.paragraph}>ReviwDetails Screen</Text>
-      <Button title="Back to home screen" onPress={pressHandler} />
+      <Text>{route.params.title}</Text>
+      <Text>{route.params.body}</Text>
+      <Text>{route.params.rating}</Text>
     </View>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    padding: 24,
-  },
-});
+

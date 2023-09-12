@@ -14,12 +14,12 @@ const Navigate = () => {
         <HomeStack.Screen
           name="Home"
           component={Home}
-          options={{ title: "Home" }}
+          options={{ title: "Homee" }}
         />
         <HomeStack.Screen
           name="reviwDetails"
           component={ReviwDetails}
-          options={{ title: "Reviw" }}
+          options={{ title: "ReviwDetails" }}
         />
       </HomeStack.Navigator>
     </NavigationContainer>
