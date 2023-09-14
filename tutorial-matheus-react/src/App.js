@@ -2,38 +2,19 @@
 // cd tutorial-matheus-react
 // npm start
 
-import logo from "./logo.svg";
 import "./App.css";
-import HelloWorld from "./components/HelloWorld";
-import SayMyName from "./components/SayMyName";
-import Pessoa from "./components/Pessoa";
-import List from "./components/List";
+
+import Evento from './components/Evento'
+import Form from "./components/Form";
 
 function App() {
-  function soma(a, b) {
-    return a + b;
-  }
-
-  const name = "Thiago";
-  const newName = name.toUpperCase();
-
-  const url = "https://via.placeholder.com/150";
 
   return (
     <div className="App">
-      <h1>Meu projeto</h1>
-      <p>Ola {newName}</p>
-      <p>Soma: {soma(2, 3)}</p>
-      <img src={url} alt="Minha imagem" />
-      <HelloWorld />
-      <SayMyName nome="Maria" />
-      <Pessoa
-        nome="Thiago"
-        idade="22"
-        profissao="Programador"
-        foto="https://via.placeholder.com/150"
-      />
-      <List/>
+      <h1>Testando Eventos</h1>
+      <Evento numero={1}/>
+      <Evento numero="2"/>
+      <Form />
     </div>
   );
 }
