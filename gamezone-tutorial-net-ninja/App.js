@@ -15,9 +15,11 @@ import { Text, View, StyleSheet } from 'react-native';
 
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import Navigate from './routes/homeStack';
+import Navigate from './routes/drawer';
 
-import Home from "./screens/home";
+import { NavigationContainer } from "@react-navigation/native";
+
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -39,8 +41,9 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-
-      <Navigate/>
+      <NavigationContainer>
+          <Navigate />
+      </NavigationContainer>
     </View>
   );
 }

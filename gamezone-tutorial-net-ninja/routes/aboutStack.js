@@ -1,5 +1,6 @@
-import Home from "../screens/home";
+import About from "../screens/about";
 import ReviwDetails from "../screens/reviwDetails";
+
 import * as React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
@@ -7,21 +8,20 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const HomeStack = createNativeStackNavigator();
 
-const Navigate = () => {
+const AboutStack = () => {
   return (
-    <NavigationContainer>
       <HomeStack.Navigator
         screenOptions={{
-          headerStyle: { backgroundColor: "#ddd", headerTintColor: "" },
+          headerStyle: { backgroundColor: "#ddd" },
           headerTintColor: "#444",
           // cardStyle: { height: 40 }, nao consegui almentar ou diminui a barra de navegacao
         }}
       >
         <HomeStack.Screen
-          name="Home"
-          component={Home}
+          name="About"
+          component={About}
           options={{
-            title: "GameZone",
+            title: "About GameZone",
           }}
         />
         <HomeStack.Screen
@@ -32,8 +32,7 @@ const Navigate = () => {
           }}
         />
       </HomeStack.Navigator>
-    </NavigationContainer>
   );
 };
 
-export default Navigate;
+export default AboutStack;

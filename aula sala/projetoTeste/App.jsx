@@ -5,45 +5,45 @@
 // npx expo start
 
 import React, { useState } from "react";
-import { View, Text, TextInput, Button } from "react-native";
-
+import { View, Text, Switch, Image, StyleSheet } from "react-native";
+import flor1 from "./assets/flor1.jpg";
+import flor2 from "./assets/flor2.jpg";
 export default function App() {
-  const [dataNascimento, setDataNascimento] = useState("");
-  const [idade, setIdade] = useState("");
+ 
+  const [image, setImage] = useState(flor1);
 
-  const calcularIdade = () => {
-    const dataNascimentoArray = dataNascimento.split("-");
-    const anoNascimento = parseInt(dataNascimentoArray[0]);
-    const mesNascimento = parseInt(dataNascimentoArray[1]);
-    const diaNascimento = parseInt(dataNascimentoArray[2]);
-
-    const dataAtual = new Date();
-    const anoAtual = dataAtual.getFullYear();
-    const mesAtual = dataAtual.getMonth() + 1;
-    const diaAtual = dataAtual.getDate();
-
-    let idadeCalculada = anoAtual - anoNascimento;
-
-    if (
-      mesAtual < mesNascimento ||
-      (mesAtual === mesNascimento && diaAtual < diaNascimento)
-    ) {
-      idadeCalculada--;
+  const [isHabilita, setHabilita] = useState(false);
+  const interruptor = () => {
+    setHabilita((previousState) => !previousState)
+    if(image == flor1){
+      setImage(flor2);
     }
-
-    setIdade(idadeCalculada.toString());
+    else{
+       setImage(flor1);
+    }
   };
+  
+  const styles = StyleSheet.create({
+    container: {
+      paddingTop: 50,
+    },
+    stretch: {
+      width: 330,
+      height: 600,
+      resizeMode: "stretch",
+    },
+  });
 
+  
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Calculadora de Idade</Text>
-      <TextInput
-        placeholder="Data de Nascimento (AAAA-MM-DD)"
-        value={dataNascimento}
-        onChangeText={(text) => setDataNascimento(text)}
+      <Image style={styles.stretch} source={image} />
+      <Switch
+        trackColor={{ false: "767577", true: "#81b0ff" }} //cor atrás do botão
+        thumbColor={isHabilita ? "#f5dd4b" : "#f4f3f4"} // parte da frente do componente
+        onValueChange={interruptor}
+        value={isHabilita}
       />
-      <Button title="Calcular Idade" onPress={calcularIdade} />
-      <Text>Sua idade é: {idade} anos</Text>
     </View>
   );
 }
