@@ -1,18 +1,22 @@
 // npx create-react-app tutorial-matheus-react
 // cd tutorial-matheus-react
 // npm start
+import { useState } from "react";
 
 import "./App.css";
-import OutraLista from "./components/OutraLista";
+
+import SeuNome from "./components/SeuNome";
+import Saudacao from "./components/Saudacao";
 
 function App() {
-  const meusItens = ["react", "vue", "Angular"];
+
+  const [nome, setNome] = useState();
 
   return (
     <div className="App">
-      <h1>Renderizacao de listas</h1>
-      <OutraLista itens={meusItens} />
-      <OutraLista itens={[]} />
+      <h1>State Lift</h1>
+      <SeuNome setNome={setNome}/>
+      <Saudacao nome={nome}/>
     </div>
   );
 }
