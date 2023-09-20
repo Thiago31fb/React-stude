@@ -5,45 +5,80 @@
 // npx expo start
 
 import React, { useState } from "react";
-import { View, Text, Switch, Image, StyleSheet } from "react-native";
-import flor1 from "./assets/flor1.jpg";
-import flor2 from "./assets/flor2.jpg";
-export default function App() {
- 
-  const [image, setImage] = useState(flor1);
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Button,
+} from "react-native";
 
-  const [isHabilita, setHabilita] = useState(false);
-  const interruptor = () => {
-    setHabilita((previousState) => !previousState)
-    if(image == flor1){
-      setImage(flor2);
-    }
-    else{
-       setImage(flor1);
-    }
-  };
-  
+export default function App() {
+  const [login, setLogin] = useState();
+  const [senha, setSenha] = useState();
+
+  function logar(L, S) {
+    console.log(L);
+    console.log(S);
+  }
+
   const styles = StyleSheet.create({
     container: {
+      backgroundColor: "#555",
       paddingTop: 50,
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
     },
-    stretch: {
-      width: 330,
-      height: 600,
-      resizeMode: "stretch",
+    container2: {
+      borderRadius: 12,
+      backgroundColor: "#333",
+      padding: 12,
+    },
+    input: {
+      height: 40,
+      width: 190,
+      margin: 12,
+      color: "#eee",
+      borderRadius: 8,
+      borderWidth: 1,
+      padding: 10,
+    },
+    title: {
+      textAlign: "center",
+      color: "chartreuse",
+      fontSize: 24,
+
+      fontWeight: "bold",
     },
   });
-
-  
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Image style={styles.stretch} source={image} />
-      <Switch
-        trackColor={{ false: "767577", true: "#81b0ff" }} //cor atrás do botão
-        thumbColor={isHabilita ? "#f5dd4b" : "#f4f3f4"} // parte da frente do componente
-        onValueChange={interruptor}
-        value={isHabilita}
-      />
-    </View>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <View style={styles.container2}>
+          <Text style={styles.title}>Login</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Usuario..."
+            placeholderTextColor="#eee"
+            onChangeText={setLogin}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Senha..."
+            placeholderTextColor="#eee"
+            secureTextEntry={true}
+            onChangeText={setSenha}
+          />
+          <Button
+            onPress={() => logar(login, senha)}
+            title="Comfirmar"
+            color="#408000"
+          />
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
