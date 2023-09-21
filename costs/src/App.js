@@ -9,7 +9,7 @@ import {
   Route,
   Routes,
   Navigate,
-  Link,
+
 } from "react-router-dom";
 
 import Home from "./components/pages/Home";
@@ -18,25 +18,25 @@ import Contact from "./components/pages/Contact";
 import NewProject from "./components/pages/NewProject";
 
 import Container from "./components/layout/Container";
+import Footer from "./components/layout/Footer";
+import Navbar from "./components/layout/Navbar";
+import Projects from "./components/pages/Projects";
 
 function App() {
   return (
     <Router>
-      <div>
-        <Link to="/">Home</Link>
-        <Link to="/company">company</Link>
-        <Link to="/contact">contact</Link>
-        <Link to="/newproject">newproject</Link>
-      </div>
+      <Navbar/>
+
       <Container customClass="min_height">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/company" element={<Company />} />
+          <Route path="/projects" element={<Projects/>} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/newproject" element={<NewProject />} />
         </Routes>
       </Container>
-      <p>Footer</p>
+      <Footer/>
     </Router>
   );
 }
