@@ -38,7 +38,7 @@ function App() {
       </Container>
       <Footer/>
     </Router>
-  );
+  ); 
 }
 
 export default App;
