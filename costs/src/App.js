@@ -3,6 +3,7 @@
 // npm install react-icons
 // npm install react-router-dom
 // npm install uuid
+// npm run backend
 
 import {
   BrowserRouter as Router,

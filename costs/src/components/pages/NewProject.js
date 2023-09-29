@@ -18,9 +18,9 @@ const NewProject = () => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         // redirect
-        navegar("/projects", { message: "Projeto criado com sucesso!" });
+        navegar("/projects", {state: { message: "Projeto criado com sucesso!" }});
       })
       .catch((err) => console.log(err));
   }
