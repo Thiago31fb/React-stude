@@ -1,17 +1,6 @@
 {
   "projects": [
     {
-      "name": "projeto 01",
-      "budget": "5000",
-      "category": {
-        "id": "3",
-        "name": "Design"
-      },
-      "cost": 0,
-      "service": [],
-      "id": 1
-    },
-    {
       "name": "projeto 02",
       "budget": "200",
       "category": {
@@ -21,17 +10,6 @@
       "cost": 0,
       "service": [],
       "id": 2
-    },
-    {
-      "name": "projeto sem fins",
-      "budget": "600",
-      "category": {
-        "id": "4",
-        "name": "Planejamento"
-      },
-      "cost": 0,
-      "service": [],
-      "id": 3
     },
     {
       "budget": "400",
