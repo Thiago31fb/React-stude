@@ -13,15 +13,28 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Button,
+  Modal,
 } from "react-native";
 
 export default function App() {
   const [login, setLogin] = useState();
   const [senha, setSenha] = useState();
 
-  function logar(L, S) {
-    console.log(L);
-    console.log(S);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modal2Visible, setModal2Visible] = useState(false);
+  const L = "T";
+  const S = "123";
+
+  function logar(l, s) {
+    if (L === l && S === s) {
+      setModalVisible(true);
+      console.log(L);
+      console.log(S);
+    }
+    else{
+      setModal2Visible(true);
+
+    }
   }
 
   const styles = StyleSheet.create({
@@ -57,6 +70,46 @@ export default function App() {
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.container}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.container}>
+            <View>
+              <Text style={styles.title}>Usuario e senha corretas!</Text>
+              <Button
+                onPress={() => setModalVisible(!modalVisible)}
+                title="Fechar"
+                color="#408000"
+              />
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modal2Visible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModal2Visible(!modal2Visible);
+          }}
+        >
+          <View style={styles.container}>
+            <View>
+              <Text style={styles.title}>Usuario e senha incorretos!</Text>
+              <Button
+                onPress={() => setModal2Visible(!modal2Visible)}
+                title="Fechar"
+                color="#408000"
+              />
+            </View>
+          </View>
+        </Modal>
         <View style={styles.container2}>
           <Text style={styles.title}>Login</Text>
           <TextInput
