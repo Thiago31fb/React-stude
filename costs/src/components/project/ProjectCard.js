@@ -1,50 +1,34 @@
-import React, { Component } from "react";
-import { View, Text, FlatList } from "react-native";
+import styles from "./ProjectCard.module.css";
 
-class FlatListDemo extends Component {
-  constructor(props) {
-    super(props);
+import { Link } from "react-router-dom";
 
-    this.state = {
-      loading: false,
-      data: [],
-      page: 1,
-      seed: 1,
-      error: null,
-      refreshing: false,
-    };
-  }
+import { BsPencil, BsFillTrashFill } from "react-icons/bs";
 
-  componentDidMount() {
-    this.makeRemoteRequest();
-  }
-
-  makeRemoteRequest = () => {
-    const { page, seed } = this.state;
-    const url = `https://randomuser.me/api/?seed=${seed}&page=${page}&results=20`;
-    this.setState({ loading: true });
-    fetch(url)
-      .then((res) => res.json())
-      .then((res) => {
-        this.setState({
-          data: page === 1 ? res.results : [...this.state.data, ...res.results],
-          error: res.error || null,
-          loading: false,
-          refreshing: false,
-        });
-      })
-      .catch((error) => {
-        this.setState({ error, loading: false });
-      });
+const ProjectCard = ({ id, name, budget, category, handleRemove }) => {
+  const remove = (e) => {
+    e.preventDefault();
+    handleRemove(id);
   };
 
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>Coming soon...</Text>
-      </View>
-    );
-  }
-}
+  return (
+    <div className={styles.project_card}>
+      <h4>{name}</h4>
+      <p>
+        <span>Orcamento:</span> R${budget}
+      </p>
+      <p className={styles.category_text}>
+        <span className={`${styles[category.toLowerCase()]}`}></span> {category}
+      </p>
+      <div className={styles.project_card_actions}>
+        <Link to={`/project/${id}`}>
+          <BsPencil /> Editar
+        </Link>
+        <button onClick={remove}>
+          <BsFillTrashFill /> Excluir
+        </button>
+      </div>
+    </div>
+  );
+};
 
-export default FlatListDemo;
+export default ProjectCard;
