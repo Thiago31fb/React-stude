@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { View, Text, FlatList } from "react-native";
+import { List, ListItem } from "react-native-elements";
 
-class FlatListDemo extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -40,11 +41,23 @@ class FlatListDemo extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <Text>Coming soon...</Text>
-      </View>
+      <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+        <FlatList
+          data={this.state.data}
+          renderItem={({ item }) => (
+            <ListItem
+              roundAvatar
+              title={`${item.name.first} ${item.name.last}`}
+              subtitle={item.email}
+              avatar={{ uri: item.picture.thumbnail }}
+              containerStyle={{ borderBottomWidth: 0 }}
+            />
+          )}
+          keyExtractor={(item) => item.email}
+        />
+      </List>
     );
   }
 }
 
-export default FlatListDemo;
+export default App;
