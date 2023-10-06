@@ -13,6 +13,7 @@ const Project = () => {
 
   const [project, setProject] = useState([]);
   const [showProjectForm, setShowProjectForm] = useState(false);
+  const [showServiceForm, setShowServiceForm] = useState(false);
   const [message, setMessage] = useState();
   const [type, setType] = useState();
 
@@ -32,11 +33,12 @@ const Project = () => {
     }, 300);
   }, [id]);
 
-  function editPost(project){
-    if(project.budget<project.cost){
-      setMessage('O orcamento nao pode ser menor que o custo do projeto!')
-      setType('error')
-      return false
+  function editPost(project) {
+    setMessage("");
+    if (project.budget < project.cost) {
+      setMessage("O orcamento nao pode ser menor que o custo do projeto!");
+      setType("error");
+      return false;
     }
     fetch(`http://localhost:5000/projects/${project.id}`, {
       method: "PATCH",
@@ -48,13 +50,16 @@ const Project = () => {
       .then((resp) => resp.json())
       .then((data) => {
         setProject(data);
-        setShowProjectForm(false)
+        setShowProjectForm(false);
         // mensagem
-         setMessage("Projeto atualizado!");
-         setType("success");
+        setMessage("Projeto atualizado!");
+        setType("success");
       })
       .catch((err) => console.log(err));
+  }
 
+  function toggleServiceForm() {
+    setShowServiceForm(!showServiceForm);
   }
 
   function toggleProjectForm() {
@@ -94,6 +99,21 @@ const Project = () => {
                 </div>
               )}
             </div>
+            <div className={styles.service_form_container}>
+              <h2>Adicione um servico: </h2>
+              <button className={styles.btn} onClick={toggleServiceForm}>
+                {!showServiceForm ? "Adicionar cervico" : "Fechar"}
+              </button>
+              <div className={styles.project_info}>
+                {showServiceForm && <div>Formulario de servico</div>
+
+                }
+              </div>
+            </div>
+            <h2>Servicos</h2>
+            <Container customClass="start">
+                <p>itens de servicos</p>
+            </Container>
           </Container>
         </div>
       ) : (
