@@ -10,11 +10,14 @@ import Container from "../layout/Container";
 import ProjecForm from "../project/ProjectForm";
 import Message from "../layout/Message";
 import ServiceForm from "../service/ServiceForm";
+import ServiceCard from "../service/serviceCard";
+// import serviceCard from "../service/serviceCard";
 
 const Project = () => {
   const { id } = useParams();
 
   const [project, setProject] = useState([]);
+  const [service, setService] = useState([]);
   const [showProjectForm, setShowProjectForm] = useState(false);
   const [showServiceForm, setShowServiceForm] = useState(false);
   const [message, setMessage] = useState();
@@ -31,6 +34,7 @@ const Project = () => {
         .then((resp) => resp.json())
         .then((data) => {
           setProject(data);
+          setService(data.service);
         })
         .catch((err) => console.log(err));
     }, 300);
@@ -88,19 +92,19 @@ const Project = () => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        console.log(data);
+        setShowServiceForm(false)
       })
       .catch((err) => console.log(err));
   }
 
+  function removeService() {}
+
   function toggleServiceForm() {
     setShowServiceForm(!showServiceForm);
   }
-
   function toggleProjectForm() {
     setShowProjectForm(!showProjectForm);
   }
-  console.log(project);
   return (
     <>
       {project.name ? (
@@ -151,7 +155,18 @@ const Project = () => {
             </div>
             <h2>Servicos</h2>
             <Container customClass="start">
-              <p>itens de servicos</p>
+              {service.length > 0 &&
+                service.map((service) => (
+                  <ServiceCard
+                    id={service.id}
+                    name={service.name}
+                    cost={service.cost}
+                    description={service.description}
+                    handleRemove={removeService}
+                    key={service.id}
+                  />
+                ))}
+              {service.length === 0 && <p>Nao ha servicos cadastrados. </p>}
             </Container>
           </Container>
         </div>
