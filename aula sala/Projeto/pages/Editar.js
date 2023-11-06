@@ -7,17 +7,23 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
+  TouchableOpacity,
+  Alert,
 } from "react-native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import Agenda from "../services/sqlite/Agenda";
 
-export default function CadastroScreen({ navigation }) {
-   const [msgError, setMsgError] = useState("");
-  const [nome, setNome] = useState("");
-    const [telefone, setTelefone] = useState("");
-    const [service, setService] = useState("");
-  const [dataHora, setDataHora] = useState(new Date());
+import { AntDesign } from "@expo/vector-icons";
+
+export default function CadastroScreen({ navigation, route }) {
+  const [msgError, setMsgError] = useState("");
+  const [id, setId] = useState(route.params.id);
+  const [nome, setNome] = useState(route.params.name);
+  const [telefone, setTelefone] = useState(route.params.phone);
+  const [service, setService] = useState(route.params.service);
+  const [dataHora, setDataHora] = useState(route.params.date);
+
   const [isDatePickerVisible, setDatePickerVisible] = useState(false);
 
   const showDatePicker = () => {
@@ -30,24 +36,50 @@ export default function CadastroScreen({ navigation }) {
 
   const handleConfirm = (date) => {
     hideDatePicker();
-    setDataHora(date);
+    setDataHora(date.toLocaleString());
   };
 
+   const exibirMensagemDeConfirmacao = () => {
+     Alert.alert(
+       "Alerta!",
+       "Você tem certeza de que deseja apagar esse registro?",
+       [
+         {
+           text: "Cancelar",
+           onPress: () => console.log("Ação cancelada"),
+           style: "cancel",
+         },
+         {
+           text: "Continuar",
+           onPress: () => {
+             // Coloque a ação que você deseja executar quando o usuário confirmar aqui
+             Agenda.remove(id);
+             navigation.reset({
+               index: 0,
+               routes: [{ name: "Agendados" }],
+             });
+             console.log("Ação confirmada");
+           },
+         },
+       ],
+       { cancelable: false }
+     );
+   };
+
   const handleCadastro = () => {
-    if (nome && telefone && dataHora && service  ) {
-      Agenda.create({
+    if (nome && telefone && dataHora && service) {
+      Agenda.update(id, {
         cliente: nome,
         phone: telefone,
         service: service,
-        date: dataHora.toLocaleString(),
+        date: dataHora,
       });
       navigation.reset({
         index: 0,
         routes: [{ name: "Agendados" }],
-      });;
+      });
     } else {
-       setMsgError("Digite todos os dados");
-
+      setMsgError("Digite todos os dados");
     }
   };
 
@@ -98,15 +130,17 @@ export default function CadastroScreen({ navigation }) {
             onCancel={hideDatePicker}
           />
 
-          <Text style={styles.label}>
-            Data e Hora Selecionadas: 
-          </Text>
-          <Text style={styles.label}>
-           {dataHora.toLocaleString()}
-          </Text>
+          <Text style={styles.label}>Data e Hora Selecionadas:</Text>
+          <Text style={styles.label}>{dataHora}</Text>
 
-          <Button title="Cadastrar" onPress={handleCadastro} />
+          <Button title="Editar" onPress={handleCadastro} />
         </View>
+        <TouchableOpacity cons onPress={() => exibirMensagemDeConfirmacao()}>
+          <Text style={styles.delete}>
+            Excluir da agenda{" "}
+            <AntDesign name="delete" size={30} color="white" />
+          </Text>
+        </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
   );

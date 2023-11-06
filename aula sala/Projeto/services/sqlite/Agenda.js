@@ -6,11 +6,11 @@ import db from "./SQLiteDatabase";
  */
 db.transaction((tx) => {
   //<<<<<<<<<<<<<<<<<<<<<<<< USE ISSO APENAS DURANTE OS TESTES!!! >>>>>>>>>>>>>>>>>>>>>>>
-  //tx.executeSql("DROP TABLE cars;");
+  // tx.executeSql("DROP TABLE agenda;");
   //<<<<<<<<<<<<<<<<<<<<<<<< USE ISSO APENAS DURANTE OS TESTES!!! >>>>>>>>>>>>>>>>>>>>>>>
 
   tx.executeSql(
-    "CREATE TABLE IF NOT EXISTS cars (id INTEGER PRIMARY KEY AUTOINCREMENT, brand TEXT, model TEXT, hp INT);"
+    "CREATE TABLE IF NOT EXISTS agenda (  id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT, phone TEXT, service TEXT, date TEX )"
   );
 });
 
@@ -22,12 +22,13 @@ db.transaction((tx) => {
  *  - Pode retornar erro (reject) caso exista erro no SQL ou nos parâmetros.
  */
 const create = (obj) => {
+  // console.log(obj);
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       //comando SQL modificável
       tx.executeSql(
-        "INSERT INTO cars (brand, model, hp) values (?, ?, ?);",
-        [obj.brand, obj.model, obj.hp],
+        "INSERT INTO agenda(name, phone, service, date) VALUES (?, ?, ?, ?)",
+        [obj.cliente, obj.phone, obj.service, obj.date],
         //-----------------------
         (_, { rowsAffected, insertId }) => {
           if (rowsAffected > 0) resolve(insertId);
@@ -51,8 +52,9 @@ const update = (id, obj) => {
     db.transaction((tx) => {
       //comando SQL modificável
       tx.executeSql(
-        "UPDATE cars SET brand=?, model=?, hp=? WHERE id=?;",
-        [obj.brand, obj.model, obj.hp, id],
+        "UPDATE agenda SET name = ?, phone = ?, service = ?, date=? WHERE id = ?",
+        [obj.cliente, obj.phone, obj.service, obj.date, id],
+
         //-----------------------
         (_, { rowsAffected }) => {
           if (rowsAffected > 0) resolve(rowsAffected);
@@ -76,7 +78,7 @@ const find = (id) => {
     db.transaction((tx) => {
       //comando SQL modificável
       tx.executeSql(
-        "SELECT * FROM cars WHERE id=?;",
+        "SELECT * FROM agenda WHERE id=?;",
         [id],
         //-----------------------
         (_, { rows }) => {
@@ -90,24 +92,24 @@ const find = (id) => {
 };
 
 /**
- * BUSCA UM REGISTRO POR MEIO DA MARCA (brand)
+ * BUSCA UM REGISTRO POR MEIO DA MARCA (cliente)
  * - Recebe a marca do carro;
  * - Retorna uma Promise:
  *  - O resultado da Promise é um array com os objetos encontrados;
  *  - Pode retornar erro (reject) caso o ID não exista ou então caso ocorra erro no SQL;
  *  - Pode retornar um array vazio caso nenhum objeto seja encontrado.
  */
-const findByBrand = (brand) => {
+const findBycliente = (cliente) => {
   return new Promise((resolve, reject) => {
     db.transaction((tx) => {
       //comando SQL modificável
       tx.executeSql(
-        "SELECT * FROM cars WHERE brand LIKE ?;",
-        [brand],
+        "SELECT * FROM agenda WHERE cliente LIKE ?;",
+        [cliente],
         //-----------------------
         (_, { rows }) => {
           if (rows.length > 0) resolve(rows._array);
-          else reject("Obj not found: brand=" + brand); // nenhum registro encontrado
+          else reject("Obj not found: cliente=" + cliente); // nenhum registro encontrado
         },
         (_, error) => reject(error) // erro interno em tx.executeSql
       );
@@ -128,7 +130,26 @@ const all = () => {
     db.transaction((tx) => {
       //comando SQL modificável
       tx.executeSql(
-        "SELECT * FROM cars;",
+        `SELECT * FROM agenda ORDER BY strftime('%Y-%m-%d %H:%M:%S', substr(date, 7, 4) || '-' || substr(date, 4, 2) || '-' || substr(date, 1, 2) || ' ' || substr(date, 12, 8)) ASC;`,
+        [],
+        //-----------------------
+        (_, { rows }) => resolve(rows._array),
+        (_, error) => reject(error) // erro interno em tx.executeSql
+      );
+    });
+  });
+};
+
+const aEfetuar = () => {
+  return new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      //comando SQL modificável
+      tx.executeSql(
+        `SELECT *
+         FROM agenda
+         WHERE strftime('%Y-%m-%d', substr(date, 7, 4) || '-' || substr(date, 4, 2) || '-' || substr(date, 1, 2)) >= strftime('%Y-%m-%d', 'now', '-12 hours')
+         ORDER BY strftime('%Y-%m-%d', substr(date, 7, 4) || '-' || substr(date, 4, 2) || '-' || substr(date, 1, 2)) ASC;
+`,
         [],
         //-----------------------
         (_, { rows }) => resolve(rows._array),
@@ -150,7 +171,7 @@ const remove = (id) => {
     db.transaction((tx) => {
       //comando SQL modificável
       tx.executeSql(
-        "DELETE FROM cars WHERE id=?;",
+        "DELETE FROM agenda WHERE id = ?",
         [id],
         //-----------------------
         (_, { rowsAffected }) => {
@@ -166,7 +187,8 @@ export default {
   create,
   update,
   find,
-  findByBrand,
+  findBycliente,
   all,
   remove,
+  aEfetuar,
 };
