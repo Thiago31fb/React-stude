@@ -15,14 +15,7 @@ const link = "http://www.google.com"
         <Navbar/>
       <div className="content">
         <Home/>
-        <h1>{title}</h1>
-        <p>liked {likes} times</p>
-        {/* <p>{person}</p> */}
-        <p>{10}</p>
-        <p>{"Hello, ninjas"}</p>
-        <p>{[1, 2, 34, 45, 4]}</p>
-        <p>{Math.random() * 10}</p>
-        <a href={link}>Google</a>
+    
       </div>
     </div>
   );
