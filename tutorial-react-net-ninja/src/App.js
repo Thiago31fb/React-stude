@@ -1,4 +1,5 @@
 // cd tutorial-react-net-ninja
+// npx json-server --watch data/db.json --port 8000
 import Navbar from "./Navbar";
 import Home from "./Home";
 
